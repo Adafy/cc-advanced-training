@@ -57,18 +57,18 @@ First, check which plugins are already installed:
 claude plugin list 2>&1
 ```
 
-Only install plugins that are **not** already present in the output. For each missing plugin, run:
+Only install plugins that are **not** already present in the output (any scope counts). For each missing plugin, run with `--scope project`:
 
 ```bash
-claude plugin install superpowers@claude-plugins-official 2>&1 || echo "superpowers plugin: may already be installed or requires interactive install"
+claude plugin install --scope project superpowers@claude-plugins-official 2>&1 || echo "superpowers plugin: may already be installed or requires interactive install"
 ```
 
 ```bash
-claude plugin install skill-creator@claude-plugins-official 2>&1 || echo "skill-creator plugin: may already be installed or requires interactive install"
+claude plugin install --scope project skill-creator@claude-plugins-official 2>&1 || echo "skill-creator plugin: may already be installed or requires interactive install"
 ```
 
 ```bash
-claude plugin install code-simplifier@claude-plugins-official 2>&1 || echo "code-simplifier plugin: may already be installed or requires interactive install"
+claude plugin install --scope project code-simplifier@claude-plugins-official 2>&1 || echo "code-simplifier plugin: may already be installed or requires interactive install"
 ```
 
 If all plugins are already installed, skip this step and report them as "Already present" in the summary.
@@ -86,9 +86,9 @@ After all automated steps complete, display any remaining manual steps:
 2. **Code editor** — remind the user they need VS Code, Cursor, or a terminal editor
 
 3. **Plugin install fallback** — if `claude plugin install` failed, tell the user to run interactively:
-   - `/plugin install superpowers@claude-plugins-official`
-   - `/plugin install skill-creator@claude-plugins-official`
-   - `/plugin install code-simplifier@claude-plugins-official`
+   - `/plugin install --scope project superpowers@claude-plugins-official`
+   - `/plugin install --scope project skill-creator@claude-plugins-official`
+   - `/plugin install --scope project code-simplifier@claude-plugins-official`
    - Then `/reload-plugins` to activate
 
 4. **Shell restart** — if any tools were newly installed (especially Rust or uv), remind to restart the terminal or source the shell profile
