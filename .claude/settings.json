@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "missing=\"\"; command -v node &>/dev/null || missing=\"$missing Node.js\"; command -v cargo &>/dev/null || missing=\"$missing Rust\"; command -v uv &>/dev/null || missing=\"$missing uv\"; command -v git &>/dev/null || missing=\"$missing Git\"; if [ -n \"$missing\" ]; then echo \"{\\\"systemMessage\\\": \\\"Missing prerequisites:$missing — run /install to set up\\\"}\"; fi",
+            "timeout": 10,
+            "statusMessage": "Checking prerequisites..."
+          }
+        ]
+      }
+    ]
+  }
+}

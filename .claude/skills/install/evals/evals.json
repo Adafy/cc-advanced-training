@@ -1,0 +1,23 @@
+{
+  "skill_name": "install",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just cloned the cc-advanced-training repo on a fresh machine. Set up everything I need to do the exercises.",
+      "expected_output": "Runs install script, detects OS, checks all tools, installs missing ones, attempts plugin installs, shows summary with manual steps for editor and auth.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/install",
+      "expected_output": "Triggers the install skill, runs the idempotent script, reports what's already installed vs newly installed, handles plugins, shows manual steps.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm getting errors about missing cargo when trying to build the tic-tac-toe backend. Can you fix my setup?",
+      "expected_output": "Recognizes this as a setup/dependency issue, runs the install script which detects Rust is missing, installs it, verifies, and shows summary.",
+      "files": []
+    }
+  ]
+}
