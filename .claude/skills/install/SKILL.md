@@ -51,15 +51,9 @@ If you cannot determine the project root, use the absolute path to the script.
 
 After all automated steps complete, display any remaining manual steps:
 
-1. **Claude Code CLI authentication** — check with `claude --version`. If it fails:
-   - Install: `npm install -g @anthropic-ai/claude-code`
-   - Authenticate: `claude` (interactive login)
+1. **Shell restart** — if any tools were newly installed (especially Rust or uv), remind to restart the terminal or source the shell profile
 
-2. **Code editor** — remind the user they need VS Code, Cursor, or a terminal editor
-
-3. **Claude Code plugins** — remind the user to run `/install_plugins` to install required plugins (superpowers, skill-creator, code-simplifier)
-
-4. **Shell restart** — if any tools were newly installed (especially Rust or uv), remind to restart the terminal or source the shell profile
+**Important:** Do NOT install Claude Code plugins at this stage. Plugins (superpowers, skill-creator, code-simplifier) are only needed for Action Pack 2. When trainees are ready for Action Pack 2, they should run `/install_plugins` then — not now.
 
 ## Output Format
 
