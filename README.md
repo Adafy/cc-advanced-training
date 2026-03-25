@@ -1,5 +1,13 @@
 # Claude Code Advanced Training
 
+A hands-on training for developers who want to go beyond basic Claude Code usage. You'll learn how to build custom slash commands, create skills, use the superpowers plugin for disciplined development workflows, and understand why CLI tools should be preferred over MCP servers.
+
+The training progresses through four action packs, each building the same tic-tac-toe application with increasing levels of automation: from manual plan mode and spec interviews, through superpowers-driven workflows (/brainstorming, /writing-plans, /executing-plans, /code-review), to custom SDLC slash commands (/feature, /review), and finally fully automated AI Developer Workflows running Claude Code programmatically via the Agent SDK.
+
+This repo ships with pre-built commands (`/prime`, `/spec-interview`, `/feature`, `/review`), an install skill that auto-detects your OS and sets up all prerequisites, and is configured with the superpowers, skill-creator, and code-simplifier plugins.
+
+Run `/install` inside Claude Code to set up your development environment.
+
 ## Action pack 1
 
 ### Step 1. Planning

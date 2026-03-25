@@ -1,8 +1,9 @@
 ---
 name: install
-description: Install all required tools and software for the Claude Code Advanced Training project. Use when the user wants to set up their development environment, install prerequisites, run /install, or mentions needing Node.js, Rust, uv, Git, or Claude Code plugins for this project. Also use when the user mentions setup issues, missing dependencies, or environment problems.
+description: Install all required tools and software for the Claude Code Advanced Training project. Use when the user wants to set up their development environment, install prerequisites, run /install, or mentions needing Node.js, Rust, uv, Git for this project. Also use when the user mentions setup issues, missing dependencies, or environment problems. Does NOT install Claude Code plugins — use /install_plugins for that.
 user-invocable: true
 allowed-tools: Bash, Read
+disable-model-invocation: true
 ---
 
 # Install — Claude Code Advanced Training Prerequisites
@@ -25,7 +26,6 @@ Set up the development environment for the Claude Code Advanced Training project
 3. **Node.js** — for TypeScript frontend and npx commands
 4. **Rust toolchain** (rustc + cargo via rustup) — for Rust web server backend
 5. **uv** — Python package manager for running ADW scripts
-6. **Claude Code plugins** — superpowers, skill-creator, and code-simplifier
 
 ## Execution Steps
 
@@ -47,35 +47,7 @@ To detect which to use, run `uname -s` via Bash. If it returns `Darwin` or `Linu
 
 If you cannot determine the project root, use the absolute path to the script.
 
-### Step 2: Install Claude Code plugins
-
-These require the Claude Code runtime and cannot be installed via the shell script.
-
-First, check which plugins are already installed:
-
-```bash
-claude plugin list 2>&1
-```
-
-Only install plugins that are **not** already present in the output (any scope counts). For each missing plugin, run with `--scope project`:
-
-```bash
-claude plugin install --scope project superpowers@claude-plugins-official 2>&1 || echo "superpowers plugin: may already be installed or requires interactive install"
-```
-
-```bash
-claude plugin install --scope project skill-creator@claude-plugins-official 2>&1 || echo "skill-creator plugin: may already be installed or requires interactive install"
-```
-
-```bash
-claude plugin install --scope project code-simplifier@claude-plugins-official 2>&1 || echo "code-simplifier plugin: may already be installed or requires interactive install"
-```
-
-If all plugins are already installed, skip this step and report them as "Already present" in the summary.
-
-If the `claude` CLI command is not available or the plugin install fails, note it as a manual step.
-
-### Step 3: Show manual installation instructions
+### Step 2: Show manual installation instructions
 
 After all automated steps complete, display any remaining manual steps:
 
@@ -85,11 +57,7 @@ After all automated steps complete, display any remaining manual steps:
 
 2. **Code editor** — remind the user they need VS Code, Cursor, or a terminal editor
 
-3. **Plugin install fallback** — if `claude plugin install` failed, tell the user to run interactively:
-   - `/plugin install --scope project superpowers@claude-plugins-official`
-   - `/plugin install --scope project skill-creator@claude-plugins-official`
-   - `/plugin install --scope project code-simplifier@claude-plugins-official`
-   - Then `/reload-plugins` to activate
+3. **Claude Code plugins** — remind the user to run `/install_plugins` to install required plugins (superpowers, skill-creator, code-simplifier)
 
 4. **Shell restart** — if any tools were newly installed (especially Rust or uv), remind to restart the terminal or source the shell profile
 
