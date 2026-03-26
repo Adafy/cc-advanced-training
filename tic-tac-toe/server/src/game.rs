@@ -142,4 +142,29 @@ mod tests {
         assert_eq!(game.board[1], Some(Player::O));
         assert_eq!(game.current_player, Player::X);
     }
+
+    #[test]
+    fn make_move_rejects_invalid_position() {
+        let mut game = Game::new();
+        assert_eq!(game.make_move(9), Err(GameError::InvalidPosition));
+    }
+
+    #[test]
+    fn make_move_rejects_occupied_cell() {
+        let mut game = Game::new();
+        game.make_move(0).unwrap();
+        assert_eq!(game.make_move(0), Err(GameError::CellOccupied));
+    }
+
+    #[test]
+    fn make_move_rejects_after_game_over() {
+        let mut game = Game::new();
+        // X wins: top row
+        game.make_move(0).unwrap(); // X
+        game.make_move(3).unwrap(); // O
+        game.make_move(1).unwrap(); // X
+        game.make_move(4).unwrap(); // O
+        game.make_move(2).unwrap(); // X wins
+        assert_eq!(game.make_move(5), Err(GameError::GameOver));
+    }
 }
