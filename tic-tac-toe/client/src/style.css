@@ -1,1 +1,84 @@
-/* Catppuccin Mocha theme — implemented in Task 11 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #cdd6f4;
+}
+
+.status {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  min-height: 1.5em;
+  color: #bac2de;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: #45475a;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.cell {
+  width: 110px;
+  height: 110px;
+  background: #313244;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.3s;
+  user-select: none;
+}
+
+.cell:hover:not(.taken):not(.disabled) {
+  background: #45475a;
+}
+
+.cell.x { color: #f38ba8; }
+.cell.o { color: #89b4fa; }
+
+.cell.winner {
+  background: rgba(166, 227, 161, 0.25);
+  box-shadow: inset 0 0 0 2px #a6e3a1;
+}
+
+.cell.disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.reset-btn {
+  margin-top: 1.25rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e1e2e;
+  background: #cba6f7;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.reset-btn:hover {
+  background: #b4befe;
+}
