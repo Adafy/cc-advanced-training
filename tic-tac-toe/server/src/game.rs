@@ -167,4 +167,91 @@ mod tests {
         game.make_move(2).unwrap(); // X wins
         assert_eq!(game.make_move(5), Err(GameError::GameOver));
     }
+
+    #[test]
+    fn detects_row_win() {
+        let mut game = Game::new();
+        game.make_move(3).unwrap(); // X
+        game.make_move(0).unwrap(); // O
+        game.make_move(4).unwrap(); // X
+        game.make_move(1).unwrap(); // O
+        game.make_move(5).unwrap(); // X wins middle row
+        assert_eq!(
+            game.status,
+            GameStatus::Won {
+                winner: Player::X,
+                winning_cells: [3, 4, 5]
+            }
+        );
+    }
+
+    #[test]
+    fn detects_column_win() {
+        let mut game = Game::new();
+        game.make_move(1).unwrap(); // X
+        game.make_move(0).unwrap(); // O
+        game.make_move(4).unwrap(); // X
+        game.make_move(2).unwrap(); // O
+        game.make_move(7).unwrap(); // X wins middle column
+        assert_eq!(
+            game.status,
+            GameStatus::Won {
+                winner: Player::X,
+                winning_cells: [1, 4, 7]
+            }
+        );
+    }
+
+    #[test]
+    fn detects_diagonal_win() {
+        let mut game = Game::new();
+        game.make_move(0).unwrap(); // X
+        game.make_move(1).unwrap(); // O
+        game.make_move(4).unwrap(); // X
+        game.make_move(2).unwrap(); // O
+        game.make_move(8).unwrap(); // X wins diagonal
+        assert_eq!(
+            game.status,
+            GameStatus::Won {
+                winner: Player::X,
+                winning_cells: [0, 4, 8]
+            }
+        );
+    }
+
+    #[test]
+    fn detects_o_win() {
+        let mut game = Game::new();
+        game.make_move(0).unwrap(); // X
+        game.make_move(3).unwrap(); // O
+        game.make_move(1).unwrap(); // X
+        game.make_move(4).unwrap(); // O
+        game.make_move(8).unwrap(); // X
+        game.make_move(5).unwrap(); // O wins middle row
+        assert_eq!(
+            game.status,
+            GameStatus::Won {
+                winner: Player::O,
+                winning_cells: [3, 4, 5]
+            }
+        );
+    }
+
+    #[test]
+    fn detects_draw() {
+        let mut game = Game::new();
+        // X O X
+        // X X O
+        // O X O
+        game.make_move(0).unwrap(); // X
+        game.make_move(1).unwrap(); // O
+        game.make_move(2).unwrap(); // X
+        game.make_move(5).unwrap(); // O
+        game.make_move(3).unwrap(); // X
+        game.make_move(6).unwrap(); // O
+        game.make_move(4).unwrap(); // X
+        game.make_move(8).unwrap(); // O
+        game.make_move(7).unwrap(); // X — draw
+        assert_eq!(game.status, GameStatus::Draw);
+    }
 }
