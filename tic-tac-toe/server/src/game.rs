@@ -41,6 +41,12 @@ pub struct Game {
     pub status: GameStatus,
 }
 
+const WIN_COMBOS: [[usize; 3]; 8] = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+    [0, 4, 8], [2, 4, 6],             // diagonals
+];
+
 impl Game {
     pub fn new() -> Self {
         Game {
@@ -49,6 +55,51 @@ impl Game {
             current_player: Player::X,
             status: GameStatus::InProgress,
         }
+    }
+
+    pub fn make_move(&mut self, position: usize) -> Result<(), GameError> {
+        if position > 8 {
+            return Err(GameError::InvalidPosition);
+        }
+        if self.status != GameStatus::InProgress {
+            return Err(GameError::GameOver);
+        }
+        if self.board[position].is_some() {
+            return Err(GameError::CellOccupied);
+        }
+
+        self.board[position] = Some(self.current_player);
+
+        // Check for winner
+        if let Some(winning_cells) = self.check_winner() {
+            self.status = GameStatus::Won {
+                winner: self.current_player,
+                winning_cells,
+            };
+        } else if self.board.iter().all(|c| c.is_some()) {
+            self.status = GameStatus::Draw;
+        } else {
+            self.current_player = match self.current_player {
+                Player::X => Player::O,
+                Player::O => Player::X,
+            };
+        }
+
+        Ok(())
+    }
+
+    fn check_winner(&self) -> Option<[usize; 3]> {
+        for combo in &WIN_COMBOS {
+            let [a, b, c] = *combo;
+            if let (Some(pa), Some(pb), Some(pc)) =
+                (self.board[a], self.board[b], self.board[c])
+            {
+                if pa == pb && pb == pc {
+                    return Some([a, b, c]);
+                }
+            }
+        }
+        None
     }
 }
 
@@ -72,5 +123,23 @@ mod tests {
     fn new_game_is_in_progress() {
         let game = Game::new();
         assert_eq!(game.status, GameStatus::InProgress);
+    }
+
+    #[test]
+    fn make_move_places_mark_and_switches_player() {
+        let mut game = Game::new();
+        game.make_move(0).unwrap();
+        assert_eq!(game.board[0], Some(Player::X));
+        assert_eq!(game.current_player, Player::O);
+    }
+
+    #[test]
+    fn make_move_alternates_players() {
+        let mut game = Game::new();
+        game.make_move(0).unwrap(); // X
+        game.make_move(1).unwrap(); // O
+        assert_eq!(game.board[0], Some(Player::X));
+        assert_eq!(game.board[1], Some(Player::O));
+        assert_eq!(game.current_player, Player::X);
     }
 }
