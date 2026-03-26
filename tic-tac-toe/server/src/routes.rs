@@ -10,13 +10,9 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use uuid::Uuid;
 
-use crate::game::{Game, GameError, GameStatus, Player};
+use crate::game::{Game, GameStatus, Player};
 
 pub type SharedState = Arc<Mutex<HashMap<Uuid, Game>>>;
-
-pub struct AppState {
-    pub games: SharedState,
-}
 
 #[derive(Serialize)]
 struct GameResponse {
