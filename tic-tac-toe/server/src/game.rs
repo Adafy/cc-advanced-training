@@ -101,6 +101,12 @@ impl Game {
         }
         None
     }
+
+    pub fn reset(&mut self) {
+        self.board = [None; 9];
+        self.current_player = Player::X;
+        self.status = GameStatus::InProgress;
+    }
 }
 
 #[cfg(test)]
@@ -253,5 +259,18 @@ mod tests {
         game.make_move(8).unwrap(); // O
         game.make_move(7).unwrap(); // X — draw
         assert_eq!(game.status, GameStatus::Draw);
+    }
+
+    #[test]
+    fn reset_clears_board_and_state() {
+        let mut game = Game::new();
+        let original_id = game.id;
+        game.make_move(0).unwrap();
+        game.make_move(1).unwrap();
+        game.reset();
+        assert_eq!(game.id, original_id); // ID preserved
+        assert!(game.board.iter().all(|cell| cell.is_none()));
+        assert_eq!(game.current_player, Player::X);
+        assert_eq!(game.status, GameStatus::InProgress);
     }
 }
