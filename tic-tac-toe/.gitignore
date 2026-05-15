@@ -1,5 +1,0 @@
-server/static/*
-!server/static/.gitkeep
-server/target/
-client/node_modules/
-client/dist/

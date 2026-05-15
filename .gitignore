@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Local Claude settings
+.claude/settings.local.json
+
+# Script state
+scripts/.rust-ttt.pid
+
+# Rust
+tic-tac-toe/server/target/
+
+# Vite build output (keep .gitkeep)
+tic-tac-toe/server/static/*
+!tic-tac-toe/server/static/.gitkeep
+
+# Node
+tic-tac-toe/client/node_modules/
+tic-tac-toe/client/dist/
